@@ -1,0 +1,21 @@
+import "bootstrap/dist/css/bootstrap.css";
+import "datatables.net-bs4/css/dataTables.bootstrap4.css";
+import "datatables.net-bs4/js/dataTables.bootstrap4";
+import "datatables.net-buttons-bs4/css/buttons.bootstrap4.css";
+import "datatables.net-buttons-bs4/js/buttons.bootstrap4";
+//import "@fortawesome/fontawesome-free/css/all.css";
+import Swal from "sweetalert2";
+import $ from "jquery";
+//import "jquery-ui";
+import validate from "jquery-validation";
+import myAlerts from "./myAlerts";
+import usuarios from "./usuarios";
+import perfiles from "./Perfiles";
+import manualesAdmin from "./manualesAdmin";
+import manualesOut from "./manualesOut";
+import accionesPersonal from "./AccionesPersonal";
+import miPerfil from "./miPerfil";
+
+window.jQuery = $;
+window.$ = $;
+window.jquery = $;
