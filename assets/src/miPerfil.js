@@ -2,21 +2,56 @@ import myAlerts from "./myAlerts";
 export default APP.miPerfil = (function() {
 	let init = () => {
 		menuOptionClick();
-		llenarTablaIncapacidades();
-		llenarTablaVacaciones();
-		llenarTablaAusencias();
-		llenarTablaPermisos();
-	};
+		let usuario = $("#UsuarioId").val();
 
+		$("#usuarioIdPerfil").val(usuario);
+		consultarDatosUsuario(usuario);
+
+		$("#usuarioIdPerfil").change(function() {
+			usuario = $("#usuarioIdPerfil").val();
+			consultarDatosUsuario(usuario);
+		});
+	};
+	let consultarDatosUsuario = usuario => {
+		llenarTablaIncapacidadesUsuario(usuario);
+		llenarTablaVacacionesUsuario(usuario);
+		llenarTablaAusenciasUsuario(usuario);
+		llenarTablaPermisosUsuario(usuario);
+		consultarCalculoVacaciones(usuario);
+	};
+	let consultarCalculoVacaciones = usuario => {
+		let parametros = {
+			usuario: usuario
+		};
+		$.ajax({
+			type: "POST",
+			dataType: "json",
+			url: base_url + "MiPerfilController/consultarCalculoVacaciones/",
+			data: parametros,
+			success: function(resp) {
+				$("#disponibles").text(resp[0]._vacDisponibles);
+				$("#acumuladas").text(resp[0]._vacAcumuladas);
+				$("#disfrutadas").text(resp[0]._vacDisfrutadas);
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				alert(errorThrown);
+			}
+		});
+	};
 	//********************************************************************************* */
 	//	VACACIONES
 	//********************************************************************************* */
-	let llenarTablaVacaciones = () => {
+	let llenarTablaVacacionesUsuario = usuario => {
 		$("#tblVacaciones").DataTable({
 			bDestroy: true,
 			processing: true,
 			ajax: {
-				url: base_url + "/AccionesPersonalController/llenarTablaVacaciones",
+				type: "POST",
+				url:
+					base_url + "/AccionesPersonalController/llenarTablaVacacionesUsuario",
+				data: {
+					usuario: usuario
+				},
 				dataSrc: "",
 				error: function(jqXHR, textStatus, errorThrown) {
 					$("#tblVacaciones")
@@ -88,12 +123,18 @@ export default APP.miPerfil = (function() {
 	//********************************************************************************* */
 	//	INCAPACIDADES
 	//********************************************************************************* */
-	let llenarTablaIncapacidades = () => {
+	let llenarTablaIncapacidadesUsuario = usuario => {
 		$("#tblIncapacidades").DataTable({
 			bDestroy: true,
 			processing: true,
 			ajax: {
-				url: base_url + "/AccionesPersonalController/llenarTablaIncapacidades",
+				type: "POST",
+				url:
+					base_url +
+					"/AccionesPersonalController/llenarTablaIncapacidadesUsuario",
+				data: {
+					usuario: usuario
+				},
 				dataSrc: "",
 				error: function(jqXHR, textStatus, errorThrown) {
 					$("#tblIncapacidades")
@@ -168,12 +209,17 @@ export default APP.miPerfil = (function() {
 	//********************************************************************************* */
 	//	AUSENCIAS
 	//********************************************************************************* */
-	let llenarTablaAusencias = () => {
+	let llenarTablaAusenciasUsuario = usuario => {
 		$("#tblAusencias").DataTable({
 			bDestroy: true,
 			processing: true,
 			ajax: {
-				url: base_url + "/AccionesPersonalController/llenarTablaAusencias",
+				type: "POST",
+				url:
+					base_url + "/AccionesPersonalController/llenarTablaAusenciasUsuario",
+				data: {
+					usuario: usuario
+				},
 				dataSrc: "",
 				error: function(jqXHR, textStatus, errorThrown) {
 					$("#tblAusencias")
@@ -248,12 +294,17 @@ export default APP.miPerfil = (function() {
 	//********************************************************************************* */
 	//	PERMISOS
 	//********************************************************************************* */
-	let llenarTablaPermisos = () => {
+	let llenarTablaPermisosUsuario = usuario => {
 		$("#tblPermisos").DataTable({
 			bDestroy: true,
 			processing: true,
 			ajax: {
-				url: base_url + "/AccionesPersonalController/llenarTablaPermisos",
+				type: "POST",
+				url:
+					base_url + "/AccionesPersonalController/llenarTablaPermisosUsuario",
+				data: {
+					usuario: usuario
+				},
 				dataSrc: "",
 				error: function(jqXHR, textStatus, errorThrown) {
 					$("#tblPermisos")

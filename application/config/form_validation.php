@@ -23,12 +23,12 @@ $config = array(
                 array(
                         'field' => 'nombre',
                         'label' => 'Nombre',
-                        'rules' => 'trim|required|xss_clean|callback_alpha_dash_space|max_length[50]'
+                        'rules' => 'trim|required|xss_clean|max_length[50]'
                 ),
                 array(
                         'field' => 'apellidos',
                         'label' => 'Apellidos',
-                        'rules' => 'trim|required|xss_clean|callback_alpha_dash_space|max_length[50]'
+                        'rules' => 'trim|required|xss_clean|max_length[50]'
                 ),
                 array(
                         'field' => 'perfiles',

@@ -24,9 +24,11 @@ class UsuariosController extends CI_Controller
 	}
 	function agregarUsuario()
 	{
-		try {
-			$usuario = $this->input->post('usuario');
-			if (!$this->usuariosModel->buscarUsuariosDuplicados($usuario)) {
+		if ($this->form_validation->run("userForm") == FALSE) {
+			$this->index(1);
+		} else {
+			try {
+				$usuario = $this->input->post('usuario');
 				$data = array(
 					'usuario' => $usuario,
 					'nombre' => $this->input->post('nombre'),
@@ -36,13 +38,12 @@ class UsuariosController extends CI_Controller
 					'fechaIngreso' => $this->input->post('fechaIngreso')
 				);
 				$resultado = $this->UsuariosModel->agregarUsuario($data);
-			} else
-				$resultado = -2;
-		} catch (Exception $e) {
-			log_message('error', $e->getMessage() . 'in' . $e->getFile() . ':' . $e->getLine());
-			$resultado = -1;
+			} catch (Exception $e) {
+				log_message('error', $e->getMessage() . 'in' . $e->getFile() . ':' . $e->getLine());
+				$resultado = -1;
+			}
+			echo $resultado;
 		}
-		echo $resultado;
 	}
 	function modificarUsuario()
 	{

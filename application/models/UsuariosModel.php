@@ -60,4 +60,11 @@ class UsuariosModel extends CI_Model
         $resultado = $query->result_array();
         return $resultado;
     }
+    function ConsultarUsuariosPorPerfil($data)
+    {
+        $sql = 'call pa_ConsultarUsuariosPorPerfil (?, ?)';
+        $query = $this->db->query($sql, $data);
+        $resultado = $query->result_array();
+        return $resultado;
+    }
 }

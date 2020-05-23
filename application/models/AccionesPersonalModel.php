@@ -44,6 +44,12 @@ class AccionesPersonalModel extends CI_Model
         $this->db->close();
         return $duplicado;
     }
+    function consultarVacacionesUsuario($data)
+    {
+        $sql = 'call pa_ConsultarVacacionesUsuario (?)';
+        $query = $this->db->query($sql, $data);
+        return $query->result_array();
+    }
 
     //funcion para llenar la tabla de vacaciones para consulta y aprobación
     function llenarTablaVacaciones()
@@ -65,6 +71,13 @@ class AccionesPersonalModel extends CI_Model
             default:
                 break;
         }
+        $query = $this->db->query($sql, $data);
+        return $query->result_array();
+    }
+
+    function consultarCalculoVacaciones($data)
+    {
+        $sql = 'call pa_consultarCalculoVacaciones (?)';
         $query = $this->db->query($sql, $data);
         return $query->result_array();
     }
@@ -110,7 +123,12 @@ class AccionesPersonalModel extends CI_Model
         $this->db->close();
         return $duplicado;
     }
-
+    function consultarIncapacidadesUsuario($data)
+    {
+        $sql = 'call pa_ConsultarIncapacidadesUsuario (?)';
+        $query = $this->db->query($sql, $data);
+        return $query->result_array();
+    }
     //funcion para llenar la tabla de incapacidades para consulta y aprobación
     function llenarTablaIncapacidades()
     {
@@ -173,6 +191,12 @@ class AccionesPersonalModel extends CI_Model
         $this->db->close();
         return $duplicado;
     }
+    function consultarAusenciasUsuario($data)
+    {
+        $sql = 'call pa_ConsultarAusenciasUsuario (?)';
+        $query = $this->db->query($sql, $data);
+        return $query->result_array();
+    }
     //funcion para llenar la tabla de ausencias para consulta y aprobación
     function llenarTablaAusencias()
     {
@@ -234,7 +258,12 @@ class AccionesPersonalModel extends CI_Model
         $this->db->close();
         return $duplicado;
     }
-
+    function consultarPermisosUsuario($data)
+    {
+        $sql = 'call pa_ConsultarPermisosUsuario (?)';
+        $query = $this->db->query($sql, $data);
+        return $query->result_array();
+    }
     //funcion para llenar la tabla de permisos para consulta y aprobación
     function llenarTablaPermisos()
     {

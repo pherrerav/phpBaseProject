@@ -25,6 +25,13 @@ class AccionesPersonalController extends CI_Controller
     {
         echo json_encode($this->AccionesPersonalModel->LlenarTablaVacaciones());
     }
+    function llenarTablaVacacionesUsuario()
+    {
+        $data = array(
+            'usuario' => $this->input->post('usuario')
+        );
+        echo json_encode($this->AccionesPersonalModel->consultarVacacionesUsuario($data));
+    }
     function agregarVacacion()
     {
         try {
@@ -82,7 +89,13 @@ class AccionesPersonalController extends CI_Controller
     {
         echo json_encode($this->AccionesPersonalModel->llenarTablaIncapacidades());
     }
-
+    function llenarTablaIncapacidadesUsuario()
+    {
+        $data = array(
+            'usuario' => $this->input->post('usuario')
+        );
+        echo json_encode($this->AccionesPersonalModel->consultarIncapacidadesUsuario($data));
+    }
     function agregarIncapacidad()
     {
         try {
@@ -143,7 +156,13 @@ class AccionesPersonalController extends CI_Controller
     {
         echo json_encode($this->AccionesPersonalModel->llenarTablaAusencias());
     }
-
+    function llenarTablaAusenciasUsuario()
+    {
+        $data = array(
+            'usuario' => $this->input->post('usuario')
+        );
+        echo json_encode($this->AccionesPersonalModel->consultarAusenciasUsuario($data));
+    }
     function agregarAusencia()
     {
         try {
@@ -204,7 +223,13 @@ class AccionesPersonalController extends CI_Controller
     {
         echo json_encode($this->AccionesPersonalModel->llenarTablaPermisos());
     }
-
+    function llenarTablaPermisosUsuario()
+    {
+        $data = array(
+            'usuario' => $this->input->post('usuario')
+        );
+        echo json_encode($this->AccionesPersonalModel->consultarPermisosUsuario($data));
+    }
     function agregarPermiso()
     {
         try {

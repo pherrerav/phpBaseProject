@@ -32,8 +32,7 @@
                             </div>
 
                             <h3 class="profile-username text-center">
-                                <select id="usuarioIdIncapacidad" name="usuarioIdIncapacidad" class="form-control" data-placeholder="Click to Choose...">
-                                    <option value="">Usuarios</option>
+                                <select id="usuarioIdPerfil" name="usuarioIdPerfil" class="form-control">
                                     <?php
                                     if (isset($usuarios))
                                         foreach ($usuarios as $row) {
@@ -43,17 +42,15 @@
                                 </select>
                             </h3>
 
-                            <p class="text-muted text-center">Software Engineer</p>
-
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Vac. Acumuladas</b> <a class="float-right">1,322</a>
+                                    <b>Vac. Acumuladas</b> <a class="float-right" id="acumuladas">0</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Vac. Disfrutadas</b> <a class="float-right">543</a>
+                                    <b>Vac. Disfrutadas</b> <a class="float-right" id="disfrutadas">0</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Vac. Disponibles</b> <a class="float-right">13,287</a>
+                                    <b>Vac. Disponibles</b> <a class="float-right" id="disponibles">0</a>
                                 </li>
                             </ul>
                         </div>
