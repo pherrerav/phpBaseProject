@@ -49,7 +49,7 @@
                         <label class="col-sm-3 control-label no-padding-right" for="fechaInicioIncapacidad"> Fecha Inicio </label>
                         <div class="col-sm-6">
                             <input type="hidden" name="incapacidadId" id="incapacidadId">
-                            <input type="text" id="fechaInicioIncapacidad" name="fechaInicioIncapacidad" placeholder="Fecha Inicio" class="form-control" />
+                            <input type="text" id="fechaInicioIncapacidad" autocomplete="off" name="fechaInicioIncapacidad" placeholder="Fecha Inicio" class="form-control" />
                             <?php echo form_error('fechaInicioIncapacidad'); ?>
                             <label for="fechaInicioIncapacidad" class="validation_error_message help-block"></label>
                         </div>
@@ -57,7 +57,7 @@
                     <div class="group">
                         <label class="col-sm-3 control-label no-padding-right" for="fechaFinIncapacidad"> Fecha Fin </label>
                         <div class="col-sm-6">
-                            <input type="text" id="fechaFinIncapacidad" name="fechaFinIncapacidad" placeholder="Fecha Fin" class="form-control" />
+                            <input type="text" id="fechaFinIncapacidad" autocomplete="off" name="fechaFinIncapacidad" placeholder="Fecha Fin" class="form-control" />
                             <?php echo form_error('fechaFinIncapacidad'); ?>
                             <label for="fechaFinIncapacidad" class="validation_error_message help-block"></label>
                         </div>
@@ -65,7 +65,7 @@
                     <div class="group">
                         <label class="col-sm-3 control-label no-padding-right" for="horasPrimerDiaIncapacidad"> Horas Primer Día </label>
                         <div class="col-sm-6">
-                            <input type="text" id="horasPrimerDiaIncapacidad" name="horasPrimerDiaIncapacidad" placeholder="Fecha Fin" class="form-control" />
+                            <input type="text" id="horasPrimerDiaIncapacidad" autocomplete="off" name="horasPrimerDiaIncapacidad" class="form-control" />
                             <?php echo form_error('horasPrimerDiaIncapacidad'); ?>
                             <label for="horasPrimerDiaIncapacidad" class="validation_error_message help-block"></label>
                         </div>

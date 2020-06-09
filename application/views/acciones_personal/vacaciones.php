@@ -64,7 +64,7 @@
                     <div class="group">
                         <label class="col-sm-8 control-label no-padding-right" for="totalDiasVacacion"> Cantidad de Días </label>
                         <div class="col-sm-6">
-                            <input type="text" id="totalDiasVacacion" name="totalDiasVacacion" class="form-control" />
+                            <input type="text" id="totalDiasVacacion" autocomplete="off" name="totalDiasVacacion" class="form-control" />
                             <?php echo form_error('totalDiasVacacion'); ?>
                             <label for="totalDiasVacacion" class="validation_error_message help-block"></label>
                         </div>

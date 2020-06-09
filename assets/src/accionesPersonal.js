@@ -1,5 +1,5 @@
 import myAlerts from "./myAlerts";
-export default APP.accionesPersonal = (function() {
+export default APP.accionesPersonal = (function () {
 	let init = () => {
 		menuOptionClick();
 		llenarTablaIncapacidades();
@@ -12,7 +12,7 @@ export default APP.accionesPersonal = (function() {
 	let actionsHandler = () => {
 		document
 			.getElementById("vacacionForm")
-			.addEventListener("submit", function(e) {
+			.addEventListener("submit", function (e) {
 				e.preventDefault();
 				ValidarFormularioVacacion();
 				if ($("#vacacionForm").valid()) {
@@ -22,7 +22,7 @@ export default APP.accionesPersonal = (function() {
 			});
 		document
 			.getElementById("incapacidadForm")
-			.addEventListener("submit", function(e) {
+			.addEventListener("submit", function (e) {
 				e.preventDefault();
 				ValidarFormularioIncapacidad();
 				if ($("#incapacidadForm").valid()) {
@@ -32,7 +32,7 @@ export default APP.accionesPersonal = (function() {
 			});
 		document
 			.getElementById("ausenciaForm")
-			.addEventListener("submit", function(e) {
+			.addEventListener("submit", function (e) {
 				e.preventDefault();
 				ValidarFormularioAusencia();
 				if ($("#ausenciaForm").valid()) {
@@ -42,7 +42,7 @@ export default APP.accionesPersonal = (function() {
 			});
 		document
 			.getElementById("permisoForm")
-			.addEventListener("submit", function(e) {
+			.addEventListener("submit", function (e) {
 				e.preventDefault();
 				ValidarFormularioPermiso();
 				if ($("#permisoForm").valid()) {
@@ -55,12 +55,8 @@ export default APP.accionesPersonal = (function() {
 	//	VACACIONES
 	//********************************************************************************* */
 	let llenarTablaVacaciones = () => {
-		$("#fechaInicioVacacion")
-			.datepicker({ dateFormat: "yy-mm-dd" })
-			.val();
-		$("#fechaFinVacacion")
-			.datepicker({ dateFormat: "yy-mm-dd" })
-			.val();
+		$("#fechaInicioVacacion").datepicker({ dateFormat: "yy-mm-dd" }).val();
+		$("#fechaFinVacacion").datepicker({ dateFormat: "yy-mm-dd" }).val();
 
 		$("#tblVacaciones").DataTable({
 			bDestroy: true,
@@ -68,30 +64,27 @@ export default APP.accionesPersonal = (function() {
 			ajax: {
 				url: base_url + "/AccionesPersonalController/llenarTablaVacaciones",
 				dataSrc: "",
-				error: function(jqXHR, textStatus, errorThrown) {
-					$("#tblVacaciones")
-						.DataTable()
-						.clear()
-						.draw();
-				}
+				error: function (jqXHR, textStatus, errorThrown) {
+					$("#tblVacaciones").DataTable().clear().draw();
+				},
 			},
 			dom: "Bfrtip",
 			columnDefs: [
 				{
 					targets: [9],
-					searchable: false
+					searchable: false,
 				},
 				{
 					targets: [6, 7, 8],
 					visible: false,
-					searchable: false
-				}
+					searchable: false,
+				},
 			],
 			columns: [
 				{
 					data: null,
 					bSortable: false,
-					mRender: function(data, type, full) {
+					mRender: function (data, type, full) {
 						let span = "";
 						if (data.estadoVacacion == 1)
 							span = '<span class="right badge badge-primary">Pendiente</span>';
@@ -100,36 +93,36 @@ export default APP.accionesPersonal = (function() {
 						else if (data.estadoVacacion == 3)
 							span = '<span class="right badge badge-danger">Rechazada</span>';
 						return span;
-					}
+					},
 				},
 				{
-					data: "fechaInicioVacacion"
+					data: "fechaInicioVacacion",
 				},
 				{
-					data: "fechaFinVacacion"
+					data: "fechaFinVacacion",
 				},
 				{
-					data: "totalDiasVacacion"
+					data: "totalDiasVacacion",
 				},
 				{
-					data: "usuarioNombre"
+					data: "usuarioNombre",
 				},
 				{
-					data: "comentarioVacacion"
+					data: "comentarioVacacion",
 				},
 				{
-					data: "estadoVacacion"
+					data: "estadoVacacion",
 				},
 				{
-					data: "vacacionId"
+					data: "vacacionId",
 				},
 				{
-					data: "usuarioIdVacacion"
+					data: "usuarioIdVacacion",
 				},
 				{
 					data: null,
 					bSortable: false,
-					mRender: function(data, type, full) {
+					mRender: function (data, type, full) {
 						let perfil = $("#PerfilId").val();
 						if (data.estadoVacacion == 1 && perfil == 1) {
 							let botones =
@@ -144,28 +137,28 @@ export default APP.accionesPersonal = (function() {
 								'<button  name ="editarV" title="Editar" class="btn btn-info btn-sm"><i class="fa fa-edit fa-sm"></i></button>';
 							return botones;
 						} else return "";
-					}
-				}
+					},
+				},
 			],
 			buttons: [
 				{
 					text: '<i class="fa fa-plus"></i>',
 					titleAttr: "Nueva Vacación",
-					action: function(e, dt, node, config) {
+					action: function (e, dt, node, config) {
 						$("#vacacionForm")[0].reset();
 						$("#vacacionModal").modal();
-					}
+					},
 				},
 				{
 					text: '<i class="fa fa-sync"></i>',
 					titleAttr: "Actualizar",
-					action: function(e, dt, node, config) {
+					action: function (e, dt, node, config) {
 						llenarTablaVacaciones();
-					}
-				}
-			]
+					},
+				},
+			],
 		});
-		$("#tblVacaciones tbody").on("click", "button", function() {
+		$("#tblVacaciones tbody").on("click", "button", function () {
 			let table = $("#tblVacaciones").DataTable();
 			let action = this.name;
 			let data = table.row($(this).parents("tr")).data();
@@ -187,14 +180,14 @@ export default APP.accionesPersonal = (function() {
 			fechaInicioVacacion: $("#fechaInicioVacacion").val(),
 			fechaFinVacacion: $("#fechaFinVacacion").val(),
 			totalDiasVacacion: $("#totalDiasVacacion").val(),
-			comentarioVacacion: $("#comentarioVacacion").val()
+			comentarioVacacion: $("#comentarioVacacion").val(),
 		};
 		$.ajax({
 			type: "POST",
 			dataType: "text",
 			url: base_url + "AccionesPersonalController/agregarVacacion/",
 			data: parametros,
-			success: function(respuesta) {
+			success: function (respuesta) {
 				if (respuesta == -1) {
 					myAlerts.myAlerts(
 						"El registro no pudo ser almacenado",
@@ -211,16 +204,16 @@ export default APP.accionesPersonal = (function() {
 					$("#vacacionForm")[0].reset();
 					$("#vacacionModal").modal("hide");
 					llenarTablaVacaciones();
-					Mensajes(
+					myAlerts.myAlerts(
 						"Registro almacenado satisfactoriamente",
 						"Guardado",
 						"success"
 					);
 				}
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
+			error: function (jqXHR, textStatus, errorThrown) {
 				alert(errorThrown);
-			}
+			},
 		});
 	};
 	let ModificarVacacion = () => {
@@ -230,14 +223,14 @@ export default APP.accionesPersonal = (function() {
 			fechaInicioVacacion: $("#fechaInicioVacacion").val(),
 			fechaFinVacacion: $("#fechaFinVacacion").val(),
 			totalDiasVacacion: $("#totalDiasVacacion").val(),
-			comentarioVacacion: $("#comentarioVacacion").val()
+			comentarioVacacion: $("#comentarioVacacion").val(),
 		};
 		$.ajax({
 			type: "POST",
 			dataType: "text",
 			url: base_url + "AccionesPersonalController/modificarVacacion/",
 			data: parametros,
-			success: function(respuesta) {
+			success: function (respuesta) {
 				if (respuesta == -1) {
 					myAlerts.myAlerts(
 						"El registro no pudo ser modificado",
@@ -254,16 +247,16 @@ export default APP.accionesPersonal = (function() {
 					$("#vacacionForm")[0].reset();
 					$("#vacacionModal").modal("hide");
 					llenarTablaVacaciones();
-					Mensajes(
+					myAlerts.myAlerts(
 						"Registro modificado satisfactoriamente",
 						"Modificado",
 						"success"
 					);
 				}
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
+			error: function (jqXHR, textStatus, errorThrown) {
 				alert(errorThrown);
-			}
+			},
 		});
 	};
 	let ValidarFormularioVacacion = () => {
@@ -274,49 +267,47 @@ export default APP.accionesPersonal = (function() {
 			ignore: "",
 			rules: {
 				usuarioVacacion: {
-					required: true
+					required: true,
 				},
 				fechaInicioVacacion: {
-					required: true
+					required: true,
 				},
 				fechaFinVacacion: {
-					required: true
+					required: true,
 				},
 				totalDiasVacacion: {
 					required: true,
 					number: true,
-					min: 1
-				}
+					min: 1,
+				},
 			},
 			messages: {
 				usuarioVacacion: "El campo es obligatorio.",
 				fechaInicioVacacion: {
 					required: "El campo es obligatorio.",
-					date: "El formato de la fecha no es correcto"
+					date: "El formato de la fecha no es correcto",
 				},
 				fechaFinVacacion: {
 					required: "El campo es obligatorio.",
-					date: "El formato de la fecha no es correcto"
+					date: "El formato de la fecha no es correcto",
 				},
 				totalDiasVacacion: {
 					required: "El campo es obligatorio.",
 					number: "El dato debe ser numérico",
-					min: "El mínimo debe ser 1"
-				}
+					min: "El mínimo debe ser 1",
+				},
 			},
-			highlight: function(e) {
+			highlight: function (e) {
 				$(e)
 					.closest(".form-group")
 					.removeClass("has-info")
 					.addClass("has-error");
 			},
-			success: function(e) {
-				$(e)
-					.closest(".form-group")
-					.removeClass("has-error"); //.addClass('has-info');
+			success: function (e) {
+				$(e).closest(".form-group").removeClass("has-error"); //.addClass('has-info');
 				$(e).remove();
 			},
-			errorPlacement: function(error, element) {
+			errorPlacement: function (error, element) {
 				var name = element.attr("name");
 				var errorSelector = '.validation_error_message[for="' + name + '"]';
 				var $element = $(errorSelector);
@@ -325,19 +316,15 @@ export default APP.accionesPersonal = (function() {
 				} else {
 					error.insertAfter(element);
 				}
-			}
+			},
 		});
 	};
 	//********************************************************************************* */
 	//	INCAPACIDADES
 	//********************************************************************************* */
 	let llenarTablaIncapacidades = () => {
-		$("#fechaInicioIncapacidad")
-			.datepicker({ dateFormat: "yy-mm-dd" })
-			.val();
-		$("#fechaFinIncapacidad")
-			.datepicker({ dateFormat: "yy-mm-dd" })
-			.val();
+		$("#fechaInicioIncapacidad").datepicker({ dateFormat: "yy-mm-dd" }).val();
+		$("#fechaFinIncapacidad").datepicker({ dateFormat: "yy-mm-dd" }).val();
 
 		$("#tblIncapacidades").DataTable({
 			bDestroy: true,
@@ -345,30 +332,27 @@ export default APP.accionesPersonal = (function() {
 			ajax: {
 				url: base_url + "/AccionesPersonalController/llenarTablaIncapacidades",
 				dataSrc: "",
-				error: function(jqXHR, textStatus, errorThrown) {
-					$("#tblIncapacidades")
-						.DataTable()
-						.clear()
-						.draw();
-				}
+				error: function (jqXHR, textStatus, errorThrown) {
+					$("#tblIncapacidades").DataTable().clear().draw();
+				},
 			},
 			dom: "Bfrtip",
 			columnDefs: [
 				{
 					targets: [10],
-					searchable: false
+					searchable: false,
 				},
 				{
 					targets: [7, 8, 9],
 					visible: false,
-					searchable: false
-				}
+					searchable: false,
+				},
 			],
 			columns: [
 				{
 					data: null,
 					bSortable: false,
-					mRender: function(data, type, full) {
+					mRender: function (data, type, full) {
 						let span = "";
 						if (data.estadoIncapacidad == 1)
 							span = '<span class="right badge badge-primary">Pendiente</span>';
@@ -377,39 +361,39 @@ export default APP.accionesPersonal = (function() {
 						else if (data.estadoIncapacidad == 3)
 							span = '<span class="right badge badge-danger">Rechazada</span>';
 						return span;
-					}
+					},
 				},
 				{
-					data: "fechaInicioIncapacidad"
+					data: "fechaInicioIncapacidad",
 				},
 				{
-					data: "fechaFinIncapacidad"
+					data: "fechaFinIncapacidad",
 				},
 				{
-					data: "totalDiasIncapacidad"
+					data: "totalDiasIncapacidad",
 				},
 				{
-					data: "horasPrimerDiaIncapacidad"
+					data: "horasPrimerDiaIncapacidad",
 				},
 				{
-					data: "usuarioNombre"
+					data: "usuarioNombre",
 				},
 				{
-					data: "comentarioIncapacidad"
+					data: "comentarioIncapacidad",
 				},
 				{
-					data: "estadoIncapacidad"
+					data: "estadoIncapacidad",
 				},
 				{
-					data: "incapacidadId"
+					data: "incapacidadId",
 				},
 				{
-					data: "usuarioIdIncapacidad"
+					data: "usuarioIdIncapacidad",
 				},
 				{
 					data: null,
 					bSortable: false,
-					mRender: function(data, type, full) {
+					mRender: function (data, type, full) {
 						let perfil = $("#PerfilId").val();
 						if (data.estadoIncapacidad == 1 && perfil == 1) {
 							let botones =
@@ -424,28 +408,28 @@ export default APP.accionesPersonal = (function() {
 								'<button  name ="editarI" title="Editar" class="btn btn-info btn-sm"><i class="fa fa-edit fa-sm"></i></button>';
 							return botones;
 						} else return "";
-					}
-				}
+					},
+				},
 			],
 			buttons: [
 				{
 					text: '<i class="fa fa-plus"></i>',
 					titleAttr: "Nueva Incapacidad",
-					action: function(e, dt, node, config) {
+					action: function (e, dt, node, config) {
 						$("#incapacidadForm")[0].reset();
 						$("#incapacidadModal").modal();
-					}
+					},
 				},
 				{
 					text: '<i class="fa fa-sync"></i>',
 					titleAttr: "Actualizar",
-					action: function(e, dt, node, config) {
+					action: function (e, dt, node, config) {
 						llenarTablaIncapacidades();
-					}
-				}
-			]
+					},
+				},
+			],
 		});
-		$("#tblIncapacidades tbody").on("click", "button", function() {
+		$("#tblIncapacidades tbody").on("click", "button", function () {
 			let table = $("#tblIncapacidades").DataTable();
 			let action = this.name;
 			let data = table.row($(this).parents("tr")).data();
@@ -467,14 +451,14 @@ export default APP.accionesPersonal = (function() {
 			fechaFinIncapacidad: $("#fechaFinIncapacidad").val(),
 			horasPrimerDiaIncapacidad: $("#horasPrimerDiaIncapacidad").val(),
 			totalDiasIncapacidad: $("#totalDiasIncapacidad").val(),
-			comentarioIncapacidad: $("#comentarioIncapacidad").val()
+			comentarioIncapacidad: $("#comentarioIncapacidad").val(),
 		};
 		$.ajax({
 			type: "POST",
 			dataType: "text",
 			url: base_url + "AccionesPersonalController/agregarIncapacidad/",
 			data: parametros,
-			success: function(respuesta) {
+			success: function (respuesta) {
 				if (respuesta == -1) {
 					myAlerts.myAlerts(
 						"El registro no pudo ser almacenado",
@@ -491,16 +475,16 @@ export default APP.accionesPersonal = (function() {
 					$("#incapacidadForm")[0].reset();
 					$("#incapacidadModal").modal("hide");
 					llenarTablaIncapacidades();
-					Mensajes(
+					myAlerts.myAlerts(
 						"Registro almacenado satisfactoriamente",
 						"Guardado",
 						"success"
 					);
 				}
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
+			error: function (jqXHR, textStatus, errorThrown) {
 				alert(errorThrown);
-			}
+			},
 		});
 	};
 	let ModificarIncapacidad = () => {
@@ -511,14 +495,14 @@ export default APP.accionesPersonal = (function() {
 			fechaFinIncapacidad: $("#fechaFinIncapacidad").val(),
 			horasPrimerDiaIncapacidad: $("#horasPrimerDiaIncapacidad").val(),
 			totalDiasIncapacidad: $("#totalDiasIncapacidad").val(),
-			comentarioIncapacidad: $("#comentarioIncapacidad").val()
+			comentarioIncapacidad: $("#comentarioIncapacidad").val(),
 		};
 		$.ajax({
 			type: "POST",
 			dataType: "text",
 			url: base_url + "AccionesPersonalController/modificarIncapacidad/",
 			data: parametros,
-			success: function(respuesta) {
+			success: function (respuesta) {
 				if (respuesta == -1) {
 					myAlerts.myAlerts(
 						"El registro no pudo ser modificado",
@@ -535,16 +519,16 @@ export default APP.accionesPersonal = (function() {
 					$("#incapacidadForm")[0].reset();
 					$("#incapacidadModal").modal("hide");
 					llenarTablaIncapacidades();
-					Mensajes(
+					myAlerts.myAlerts(
 						"Registro almacenado satisfactoriamente",
 						"Modificado",
 						"success"
 					);
 				}
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
+			error: function (jqXHR, textStatus, errorThrown) {
 				alert(errorThrown);
-			}
+			},
 		});
 	};
 	let ValidarFormularioIncapacidad = () => {
@@ -555,55 +539,53 @@ export default APP.accionesPersonal = (function() {
 			ignore: "",
 			rules: {
 				usuarioIncapacidad: {
-					required: true
+					required: true,
 				},
 				fechaInicioIncapacidad: {
-					required: true
+					required: true,
 				},
 				fechaFinIncapacidad: {
-					required: true
+					required: true,
 				},
 				horasPrimerDiaIncapacidad: {
 					required: true,
-					number: true
+					number: true,
 				},
 				totalDiasIncapacidad: {
 					required: true,
-					number: true
-				}
+					number: true,
+				},
 			},
 			messages: {
 				usuarioIncapacidad: "El campo es obligatorio.",
 				fechaInicioIncapacidad: {
 					required: "El campo es obligatorio.",
-					date: "El formato de la fecha no es correcto"
+					date: "El formato de la fecha no es correcto",
 				},
 				fechaFinIncapacidad: {
 					required: "El campo es obligatorio.",
-					date: "El formato de la fecha no es correcto"
+					date: "El formato de la fecha no es correcto",
 				},
 				horasPrimerDiaIncapacidad: {
 					required: "El campo es obligatorio.",
-					number: "El dato debe ser numérico"
+					number: "El dato debe ser numérico",
 				},
 				totalDiasIncapacidad: {
 					required: "El campo es obligatorio.",
-					number: "El dato debe ser numérico"
-				}
+					number: "El dato debe ser numérico",
+				},
 			},
-			highlight: function(e) {
+			highlight: function (e) {
 				$(e)
 					.closest(".form-group")
 					.removeClass("has-info")
 					.addClass("has-error");
 			},
-			success: function(e) {
-				$(e)
-					.closest(".form-group")
-					.removeClass("has-error"); //.addClass('has-info');
+			success: function (e) {
+				$(e).closest(".form-group").removeClass("has-error"); //.addClass('has-info');
 				$(e).remove();
 			},
-			errorPlacement: function(error, element) {
+			errorPlacement: function (error, element) {
 				var name = element.attr("name");
 				var errorSelector = '.validation_error_message[for="' + name + '"]';
 				var $element = $(errorSelector);
@@ -612,19 +594,15 @@ export default APP.accionesPersonal = (function() {
 				} else {
 					error.insertAfter(element);
 				}
-			}
+			},
 		});
 	};
 	//********************************************************************************* */
 	//	AUSENCIAS
 	//********************************************************************************* */
 	let llenarTablaAusencias = () => {
-		$("#fechaInicioAusencia")
-			.datepicker({ dateFormat: "yy-mm-dd" })
-			.val();
-		$("#fechaFinAusencia")
-			.datepicker({ dateFormat: "yy-mm-dd" })
-			.val();
+		$("#fechaInicioAusencia").datepicker({ dateFormat: "yy-mm-dd" }).val();
+		$("#fechaFinAusencia").datepicker({ dateFormat: "yy-mm-dd" }).val();
 
 		$("#tblAusencias").DataTable({
 			bDestroy: true,
@@ -632,30 +610,27 @@ export default APP.accionesPersonal = (function() {
 			ajax: {
 				url: base_url + "/AccionesPersonalController/llenarTablaAusencias",
 				dataSrc: "",
-				error: function(jqXHR, textStatus, errorThrown) {
-					$("#tblAusencias")
-						.DataTable()
-						.clear()
-						.draw();
-				}
+				error: function (jqXHR, textStatus, errorThrown) {
+					$("#tblAusencias").DataTable().clear().draw();
+				},
 			},
 			dom: "Bfrtip",
 			columnDefs: [
 				{
 					targets: [10],
-					searchable: false
+					searchable: false,
 				},
 				{
 					targets: [7, 8, 9],
 					visible: false,
-					searchable: false
-				}
+					searchable: false,
+				},
 			],
 			columns: [
 				{
 					data: null,
 					bSortable: false,
-					mRender: function(data, type, full) {
+					mRender: function (data, type, full) {
 						let span = "";
 						if (data.estadoAusencia == 1)
 							span = '<span class="right badge badge-primary">Pendiente</span>';
@@ -664,39 +639,39 @@ export default APP.accionesPersonal = (function() {
 						else if (data.estadoAusencia == 3)
 							span = '<span class="right badge badge-danger">Rechazada</span>';
 						return span;
-					}
+					},
 				},
 				{
-					data: "fechaInicioAusencia"
+					data: "fechaInicioAusencia",
 				},
 				{
-					data: "fechaFinAusencia"
+					data: "fechaFinAusencia",
 				},
 				{
-					data: "totalDiasAusencia"
+					data: "totalDiasAusencia",
 				},
 				{
-					data: "horasPrimerDiaAusencia"
+					data: "horasPrimerDiaAusencia",
 				},
 				{
-					data: "usuarioNombre"
+					data: "usuarioNombre",
 				},
 				{
-					data: "comentarioAusencia"
+					data: "comentarioAusencia",
 				},
 				{
-					data: "estadoAusencia"
+					data: "estadoAusencia",
 				},
 				{
-					data: "ausenciaId"
+					data: "ausenciaId",
 				},
 				{
-					data: "usuarioIdAusencia"
+					data: "usuarioIdAusencia",
 				},
 				{
 					data: null,
 					bSortable: false,
-					mRender: function(data, type, full) {
+					mRender: function (data, type, full) {
 						let perfil = $("#PerfilId").val();
 						if (data.estadoAusencia == 1 && perfil == 1) {
 							let botones =
@@ -711,28 +686,28 @@ export default APP.accionesPersonal = (function() {
 								'<button  name ="editarA" title="Editar" class="btn btn-info btn-sm"><i class="fa fa-edit fa-sm"></i></button>';
 							return botones;
 						} else return "";
-					}
-				}
+					},
+				},
 			],
 			buttons: [
 				{
 					text: '<i class="fa fa-plus"></i>',
 					titleAttr: "Nueva Ausencia",
-					action: function(e, dt, node, config) {
+					action: function (e, dt, node, config) {
 						$("#ausenciaForm")[0].reset();
 						$("#ausenciaModal").modal();
-					}
+					},
 				},
 				{
 					text: '<i class="fa fa-sync"></i>',
 					titleAttr: "Actualizar",
-					action: function(e, dt, node, config) {
+					action: function (e, dt, node, config) {
 						llenarTablaAusencias();
-					}
-				}
-			]
+					},
+				},
+			],
 		});
-		$("#tblAusencias tbody").on("click", "button", function() {
+		$("#tblAusencias tbody").on("click", "button", function () {
 			let table = $("#tblAusencias").DataTable();
 			let action = this.name;
 			let data = table.row($(this).parents("tr")).data();
@@ -754,14 +729,14 @@ export default APP.accionesPersonal = (function() {
 			fechaFinAusencia: $("#fechaFinAusencia").val(),
 			horasPrimerDiaAusencia: $("#horasPrimerDiaAusencia").val(),
 			totalDiasAusencia: $("#totalDiasAusencia").val(),
-			comentarioAusencia: $("#comentarioAusencia").val()
+			comentarioAusencia: $("#comentarioAusencia").val(),
 		};
 		$.ajax({
 			type: "POST",
 			dataType: "text",
 			url: base_url + "AccionesPersonalController/agregarAusencia/",
 			data: parametros,
-			success: function(respuesta) {
+			success: function (respuesta) {
 				if (respuesta == -1) {
 					myAlerts.myAlerts(
 						"El registro no pudo ser almacenado",
@@ -778,16 +753,16 @@ export default APP.accionesPersonal = (function() {
 					$("#ausenciaForm")[0].reset();
 					$("#ausenciaModal").modal("hide");
 					llenarTablaAusencias();
-					Mensajes(
+					myAlerts.myAlerts(
 						"Registro almacenado satisfactoriamente",
 						"Guardado",
 						"success"
 					);
 				}
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
+			error: function (jqXHR, textStatus, errorThrown) {
 				alert(errorThrown);
-			}
+			},
 		});
 	};
 	let ModificarAusencia = () => {
@@ -798,14 +773,14 @@ export default APP.accionesPersonal = (function() {
 			fechaFinAusencia: $("#fechaFinAusencia").val(),
 			horasPrimerDiaAusencia: $("#horasPrimerDiaAusencia").val(),
 			totalDiasAusencia: $("#totalDiasAusencia").val(),
-			comentarioAusencia: $("#comentarioAusencia").val()
+			comentarioAusencia: $("#comentarioAusencia").val(),
 		};
 		$.ajax({
 			type: "POST",
 			dataType: "text",
 			url: base_url + "AccionesPersonalController/modificarAusencia/",
 			data: parametros,
-			success: function(respuesta) {
+			success: function (respuesta) {
 				if (respuesta == -1) {
 					myAlerts.myAlerts(
 						"El registro no pudo ser modificado",
@@ -822,16 +797,16 @@ export default APP.accionesPersonal = (function() {
 					$("#ausenciaForm")[0].reset();
 					$("#ausenciaModal").modal("hide");
 					llenarTablaAusencias();
-					Mensajes(
+					myAlerts.myAlerts(
 						"Registro almacenado satisfactoriamente",
 						"Modificado",
 						"success"
 					);
 				}
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
+			error: function (jqXHR, textStatus, errorThrown) {
 				alert(errorThrown);
-			}
+			},
 		});
 	};
 	let ValidarFormularioAusencia = () => {
@@ -842,55 +817,53 @@ export default APP.accionesPersonal = (function() {
 			ignore: "",
 			rules: {
 				usuarioAusencia: {
-					required: true
+					required: true,
 				},
 				fechaInicioAusencia: {
-					required: true
+					required: true,
 				},
 				fechaFinAusencia: {
-					required: true
+					required: true,
 				},
 				horasPrimerDiaAusencia: {
 					required: true,
-					number: true
+					number: true,
 				},
 				totalDiasAusencia: {
 					required: true,
-					number: true
-				}
+					number: true,
+				},
 			},
 			messages: {
 				usuarioAusencia: "El campo es obligatorio.",
 				fechaInicioAusencia: {
 					required: "El campo es obligatorio.",
-					date: "El formato de la fecha no es correcto"
+					date: "El formato de la fecha no es correcto",
 				},
 				fechaFinAusencia: {
 					required: "El campo es obligatorio.",
-					date: "El formato de la fecha no es correcto"
+					date: "El formato de la fecha no es correcto",
 				},
 				horasPrimerDiaAusencia: {
 					required: "El campo es obligatorio.",
-					number: "El dato debe ser numérico"
+					number: "El dato debe ser numérico",
 				},
 				totalDiasAusencia: {
 					required: "El campo es obligatorio.",
-					number: "El dato debe ser numérico"
-				}
+					number: "El dato debe ser numérico",
+				},
 			},
-			highlight: function(e) {
+			highlight: function (e) {
 				$(e)
 					.closest(".form-group")
 					.removeClass("has-info")
 					.addClass("has-error");
 			},
-			success: function(e) {
-				$(e)
-					.closest(".form-group")
-					.removeClass("has-error"); //.addClass('has-info');
+			success: function (e) {
+				$(e).closest(".form-group").removeClass("has-error"); //.addClass('has-info');
 				$(e).remove();
 			},
-			errorPlacement: function(error, element) {
+			errorPlacement: function (error, element) {
 				var name = element.attr("name");
 				var errorSelector = '.validation_error_message[for="' + name + '"]';
 				var $element = $(errorSelector);
@@ -899,19 +872,15 @@ export default APP.accionesPersonal = (function() {
 				} else {
 					error.insertAfter(element);
 				}
-			}
+			},
 		});
 	};
 	//********************************************************************************* */
 	//	PERMISOS
 	//********************************************************************************* */
 	let llenarTablaPermisos = () => {
-		$("#fechaInicioPermiso")
-			.datepicker({ dateFormat: "yy-mm-dd" })
-			.val();
-		$("#fechaFinPermiso")
-			.datepicker({ dateFormat: "yy-mm-dd" })
-			.val();
+		$("#fechaInicioPermiso").datepicker({ dateFormat: "yy-mm-dd" }).val();
+		$("#fechaFinPermiso").datepicker({ dateFormat: "yy-mm-dd" }).val();
 
 		$("#tblPermisos").DataTable({
 			bDestroy: true,
@@ -919,30 +888,27 @@ export default APP.accionesPersonal = (function() {
 			ajax: {
 				url: base_url + "/AccionesPersonalController/llenarTablaPermisos",
 				dataSrc: "",
-				error: function(jqXHR, textStatus, errorThrown) {
-					$("#tblPermisos")
-						.DataTable()
-						.clear()
-						.draw();
-				}
+				error: function (jqXHR, textStatus, errorThrown) {
+					$("#tblPermisos").DataTable().clear().draw();
+				},
 			},
 			dom: "Bfrtip",
 			columnDefs: [
 				{
 					targets: [12],
-					searchable: false
+					searchable: false,
 				},
 				{
 					targets: [5, 9, 10, 11],
 					visible: false,
-					searchable: false
-				}
+					searchable: false,
+				},
 			],
 			columns: [
 				{
 					data: null,
 					bSortable: false,
-					mRender: function(data, type, full) {
+					mRender: function (data, type, full) {
 						let span = "";
 						if (data.estadoPermiso == 1)
 							span = '<span class="right badge badge-primary">Pendiente</span>';
@@ -951,52 +917,52 @@ export default APP.accionesPersonal = (function() {
 						else if (data.estadoPermiso == 3)
 							span = '<span class="right badge badge-danger">Rechazada</span>';
 						return span;
-					}
+					},
 				},
 				{
-					data: "fechaInicioPermiso"
+					data: "fechaInicioPermiso",
 				},
 				{
-					data: "fechaFinPermiso"
+					data: "fechaFinPermiso",
 				},
 				{
-					data: "totalDiasPermiso"
+					data: "totalDiasPermiso",
 				},
 				{
-					data: "horasPrimerDiaPermiso"
+					data: "horasPrimerDiaPermiso",
 				},
 				{
-					data: "tipoPermisoPermiso"
+					data: "tipoPermisoPermiso",
 				},
 				{
 					data: null,
 					bSortable: false,
-					mRender: function(data, type, full) {
+					mRender: function (data, type, full) {
 						let permiso = "";
 						if (data.tipoPermisoPermiso == 1) permiso = "Permiso con Goce";
 						else permiso = "Permiso sin Goce";
 						return permiso;
-					}
+					},
 				},
 				{
-					data: "usuarioNombre"
+					data: "usuarioNombre",
 				},
 				{
-					data: "comentarioPermiso"
+					data: "comentarioPermiso",
 				},
 				{
-					data: "estadoPermiso"
+					data: "estadoPermiso",
 				},
 				{
-					data: "permisoId"
+					data: "permisoId",
 				},
 				{
-					data: "usuarioIdPermiso"
+					data: "usuarioIdPermiso",
 				},
 				{
 					data: null,
 					bSortable: false,
-					mRender: function(data, type, full) {
+					mRender: function (data, type, full) {
 						let perfil = $("#PerfilId").val();
 						if (data.estadoPermiso == 1 && perfil == 1) {
 							let botones =
@@ -1011,28 +977,28 @@ export default APP.accionesPersonal = (function() {
 								'<button  name ="editarP" title="Editar" class="btn btn-info btn-sm"><i class="fa fa-edit fa-sm"></i></button>';
 							return botones;
 						} else return "";
-					}
-				}
+					},
+				},
 			],
 			buttons: [
 				{
 					text: '<i class="fa fa-plus"></i>',
 					titleAttr: "Nueva Permiso",
-					action: function(e, dt, node, config) {
+					action: function (e, dt, node, config) {
 						$("#permisoForm")[0].reset();
 						$("#permisoModal").modal();
-					}
+					},
 				},
 				{
 					text: '<i class="fa fa-sync"></i>',
 					titleAttr: "Actualizar",
-					action: function(e, dt, node, config) {
+					action: function (e, dt, node, config) {
 						llenarTablaPermisos();
-					}
-				}
-			]
+					},
+				},
+			],
 		});
-		$("#tblPermisos tbody").on("click", "button", function() {
+		$("#tblPermisos tbody").on("click", "button", function () {
 			let table = $("#tblPermisos").DataTable();
 			let action = this.name;
 			let data = table.row($(this).parents("tr")).data();
@@ -1056,14 +1022,14 @@ export default APP.accionesPersonal = (function() {
 			horasPrimerDiaPermiso: $("#horasPrimerDiaPermiso").val(),
 			totalDiasPermiso: $("#totalDiasPermiso").val(),
 			comentarioPermiso: $("#comentarioPermiso").val(),
-			tipoPermisoPermiso: $("#tipoPermisoPermiso").val()
+			tipoPermisoPermiso: $("#tipoPermisoPermiso").val(),
 		};
 		$.ajax({
 			type: "POST",
 			dataType: "text",
 			url: base_url + "AccionesPersonalController/agregarPermiso/",
 			data: parametros,
-			success: function(respuesta) {
+			success: function (respuesta) {
 				if (respuesta == -1) {
 					myAlerts.myAlerts(
 						"El registro no pudo ser almacenado",
@@ -1080,16 +1046,16 @@ export default APP.accionesPersonal = (function() {
 					$("#permisoForm")[0].reset();
 					$("#permisoModal").modal("hide");
 					llenarTablaPermisos();
-					Mensajes(
+					myAlerts.myAlerts(
 						"Registro almacenado satisfactoriamente",
 						"Guardado",
 						"success"
 					);
 				}
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
+			error: function (jqXHR, textStatus, errorThrown) {
 				alert(errorThrown);
-			}
+			},
 		});
 	};
 	let ModificarPermiso = () => {
@@ -1101,14 +1067,14 @@ export default APP.accionesPersonal = (function() {
 			horasPrimerDiaPermiso: $("#horasPrimerDiaPermiso").val(),
 			totalDiasPermiso: $("#totalDiasPermiso").val(),
 			comentarioPermiso: $("#comentarioPermiso").val(),
-			tipoPermisoPermiso: $("#tipoPermisoPermiso").val()
+			tipoPermisoPermiso: $("#tipoPermisoPermiso").val(),
 		};
 		$.ajax({
 			type: "POST",
 			dataType: "text",
 			url: base_url + "AccionesPersonalController/modificarPermiso/",
 			data: parametros,
-			success: function(respuesta) {
+			success: function (respuesta) {
 				if (respuesta == -1) {
 					myAlerts.myAlerts(
 						"El registro no pudo ser modificado",
@@ -1125,16 +1091,16 @@ export default APP.accionesPersonal = (function() {
 					$("#permisoForm")[0].reset();
 					$("#permisoModal").modal("hide");
 					llenarTablaPermisos();
-					Mensajes(
+					myAlerts.myAlerts(
 						"Registro almacenado satisfactoriamente",
 						"Modificado",
 						"success"
 					);
 				}
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
+			error: function (jqXHR, textStatus, errorThrown) {
 				alert(errorThrown);
-			}
+			},
 		});
 	};
 	let ValidarFormularioPermiso = () => {
@@ -1145,59 +1111,57 @@ export default APP.accionesPersonal = (function() {
 			ignore: "",
 			rules: {
 				usuarioPermiso: {
-					required: true
+					required: true,
 				},
 				fechaInicioPermiso: {
-					required: true
+					required: true,
 				},
 				fechaFinPermiso: {
-					required: true
+					required: true,
 				},
 				tipoPermisoPermiso: {
-					required: true
+					required: true,
 				},
 				horasPrimerDiaPermiso: {
 					required: true,
-					number: true
+					number: true,
 				},
 				totalDiasPermiso: {
 					required: true,
-					number: true
-				}
+					number: true,
+				},
 			},
 			messages: {
 				usuarioPermiso: "El campo es obligatorio.",
 				tipoPermisoPermiso: "El campo es obligatorio.",
 				fechaInicioPermiso: {
 					required: "El campo es obligatorio.",
-					date: "El formato de la fecha no es correcto"
+					date: "El formato de la fecha no es correcto",
 				},
 				fechaFinPermiso: {
 					required: "El campo es obligatorio.",
-					date: "El formato de la fecha no es correcto"
+					date: "El formato de la fecha no es correcto",
 				},
 				horasPrimerDiaPermiso: {
 					required: "El campo es obligatorio.",
-					number: "El dato debe ser numérico"
+					number: "El dato debe ser numérico",
 				},
 				totalDiasPermiso: {
 					required: "El campo es obligatorio.",
-					number: "El dato debe ser numérico"
-				}
+					number: "El dato debe ser numérico",
+				},
 			},
-			highlight: function(e) {
+			highlight: function (e) {
 				$(e)
 					.closest(".form-group")
 					.removeClass("has-info")
 					.addClass("has-error");
 			},
-			success: function(e) {
-				$(e)
-					.closest(".form-group")
-					.removeClass("has-error"); //.addClass('has-info');
+			success: function (e) {
+				$(e).closest(".form-group").removeClass("has-error"); //.addClass('has-info');
 				$(e).remove();
 			},
-			errorPlacement: function(error, element) {
+			errorPlacement: function (error, element) {
 				var name = element.attr("name");
 				var errorSelector = '.validation_error_message[for="' + name + '"]';
 				var $element = $(errorSelector);
@@ -1206,7 +1170,7 @@ export default APP.accionesPersonal = (function() {
 				} else {
 					error.insertAfter(element);
 				}
-			}
+			},
 		});
 	};
 
@@ -1220,8 +1184,8 @@ export default APP.accionesPersonal = (function() {
 	/*=========================================================================
 	MÉTODO LLENAR EL FORMULARIO AL HCER CLIC EN UNA FILA DE LA TABLA
     ==========================================================================*/
-	let llenarFormulario = json => {
-		$.each(json, function(k, v) {
+	let llenarFormulario = (json) => {
+		$.each(json, function (k, v) {
 			$(`#${k}`).val(v);
 		});
 	};
@@ -1229,14 +1193,14 @@ export default APP.accionesPersonal = (function() {
 		var parametros = {
 			id: id,
 			estado: estado,
-			tipoExcepcion: tipoExcepcion
+			tipoExcepcion: tipoExcepcion,
 		};
 		$.ajax({
 			type: "POST",
 			dataType: "text",
 			url: base_url + "AccionesPersonalController/actualizarEstado/",
 			data: parametros,
-			success: function(respuesta) {
+			success: function (respuesta) {
 				if (respuesta != 1) {
 					myAlerts.myAlerts(
 						"El registro no pudo ser modificado",
@@ -1250,12 +1214,12 @@ export default APP.accionesPersonal = (function() {
 					else llenarTablaPermisos();
 				}
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
+			error: function (jqXHR, textStatus, errorThrown) {
 				alert(errorThrown);
-			}
+			},
 		});
 	};
 	return {
-		init: init
+		init: init,
 	};
 })();

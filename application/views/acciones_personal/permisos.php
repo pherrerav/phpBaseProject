@@ -51,7 +51,7 @@
                         <label class="col-sm-3 control-label no-padding-right" for="fechaInicioPermiso"> Fecha Inicio </label>
                         <div class="col-sm-6">
                             <input type="hidden" name="permisoId" id="permisoId">
-                            <input type="text" id="fechaInicioPermiso" name="fechaInicioPermiso" placeholder="Fecha Inicio" class="form-control" />
+                            <input type="text" id="fechaInicioPermiso" autocomplete="off" name="fechaInicioPermiso" placeholder="Fecha Inicio" class="form-control" />
                             <?php echo form_error('fechaInicioPermiso'); ?>
                             <label for="fechaInicioPermiso" class="validation_error_message help-block"></label>
                         </div>
@@ -59,7 +59,7 @@
                     <div class="group">
                         <label class="col-sm-3 control-label no-padding-right" for="fechaFinPermiso"> Fecha Fin </label>
                         <div class="col-sm-6">
-                            <input type="text" id="fechaFinPermiso" name="fechaFinPermiso" placeholder="Fecha Fin" class="form-control" />
+                            <input type="text" id="fechaFinPermiso" autocomplete="off" name="fechaFinPermiso" placeholder="Fecha Fin" class="form-control" />
                             <?php echo form_error('fechaFinPermiso'); ?>
                             <label for="fechaFinPermiso" class="validation_error_message help-block"></label>
                         </div>
@@ -67,7 +67,7 @@
                     <div class="group">
                         <label class="col-sm-8 control-label no-padding-right" for="horasPrimerDiaPermiso"> Horas Primer Día </label>
                         <div class="col-sm-6">
-                            <input type="text" id="horasPrimerDiaPermiso" name="horasPrimerDiaPermiso" placeholder="Horas Primer Día" class="form-control" />
+                            <input type="text" id="horasPrimerDiaPermiso" autocomplete="off" name="horasPrimerDiaPermiso" placeholder="Horas Primer Día" class="form-control" />
                             <?php echo form_error('horasPrimerDiaPermiso'); ?>
                             <label for="horasPrimerDiaPermiso" class="validation_error_message help-block"></label>
                         </div>

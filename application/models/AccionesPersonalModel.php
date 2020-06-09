@@ -8,7 +8,7 @@ class AccionesPersonalModel extends CI_Model
     //funcion para agregar un nueva vacacion a la base de datos
     function agregarVacacion($data)
     {
-        $sql = 'call pa_agregarVacacion (?, ?, ?, ?, ?)';
+        $sql = "call pa_agregarVacacion (?, ?, ?, ?, ?)";
         if ($this->db->query($sql, $data))
             $resultado = 1;
         else
@@ -19,7 +19,7 @@ class AccionesPersonalModel extends CI_Model
     //funcion para modificar una vacacion a la base de datos
     function modificarVacacion($data)
     {
-        $sql = 'call pa_modificarVacacion (?, ?, ?, ?, ?, ?)';
+        $sql = "call pa_modificarVacacion (?, ?, ?, ?, ?, ?)";
         if ($this->db->query($sql, $data))
             $resultado = 1;
         else
@@ -36,12 +36,15 @@ class AccionesPersonalModel extends CI_Model
             'id' => $id
         );
         $duplicado = true;
-        $sql = 'call pa_validarTraslapeVacacion(?, ?, ?, ?)';
+        if ($id == 0)
+            $sql = "call pa_validarTraslapeVacacion(?, ?, ?, ?)";
+        else
+            $sql = "call pa_validarTraslapeVacacionModifica(?, ?, ?, ?)";
         $query = $this->db->query($sql, $data);
         if ($query->num_rows() == 0)
             $duplicado = false;
 
-        $this->db->close();
+        mysqli_next_result($this->db->conn_id);
         return $duplicado;
     }
     function consultarVacacionesUsuario($data)
@@ -107,20 +110,25 @@ class AccionesPersonalModel extends CI_Model
         return $resultado;
     }
 
-    function validarTraslapeIncapacidad($usuario, $fechaIncio, $fechaFin)
+    function validarTraslapeIncapacidad($usuario, $fechaIncio, $fechaFin, $id)
     {
         $data = array(
             'usuario' => $usuario,
             'fechaInicio' => $fechaIncio,
-            'fechaFin' => $fechaFin
+            'fechaFin' => $fechaFin,
+            'id' => $id
         );
         $duplicado = true;
-        $sql = 'call pa_validarTraslapeIncapacidad(?, ?, ?)';
+        if ($id == 0)
+            $sql = 'call pa_validarTraslapeIncapacidad(?, ?, ?, ?)';
+        else
+            $sql = 'call pa_validarTraslapeIncapacidadModifica(?, ?, ?, ?)';
+
         $query = $this->db->query($sql, $data);
         if ($query->num_rows() == 0)
             $duplicado = false;
 
-        $this->db->close();
+        mysqli_next_result($this->db->conn_id);
         return $duplicado;
     }
     function consultarIncapacidadesUsuario($data)
@@ -175,20 +183,24 @@ class AccionesPersonalModel extends CI_Model
         return $resultado;
     }
 
-    function validarTraslapeAusencia($usuario, $fechaIncio, $fechaFin)
+    function validarTraslapeAusencia($usuario, $fechaIncio, $fechaFin, $id)
     {
         $data = array(
             'usuario' => $usuario,
             'fechaInicio' => $fechaIncio,
-            'fechaFin' => $fechaFin
+            'fechaFin' => $fechaFin,
+            'id' => $id
         );
-        $sql = 'call pa_validarTraslapeAusencia(?, ?, ?)';
+        if ($id == 0)
+            $sql = 'call pa_validarTraslapeAusencia(?, ?, ?, ?)';
+        else
+            $sql = 'call pa_validarTraslapeAusenciaModifica(?, ?, ?, ?)';
         $query = $this->db->query($sql, $data);
         $duplicado = true;
         if ($query->num_rows() == 0)
             $duplicado = false;
 
-        $this->db->close();
+        mysqli_next_result($this->db->conn_id);
         return $duplicado;
     }
     function consultarAusenciasUsuario($data)
@@ -242,20 +254,24 @@ class AccionesPersonalModel extends CI_Model
             $resultado = -1;
         return $resultado;
     }
-    function validarTraslapePermiso($usuario, $fechaIncio, $fechaFin)
+    function validarTraslapePermiso($usuario, $fechaIncio, $fechaFin, $id)
     {
         $data = array(
             'usuario' => $usuario,
             'fechaInicio' => $fechaIncio,
-            'fechaFin' => $fechaFin
+            'fechaFin' => $fechaFin,
+            'id' => $id
         );
-        $sql = 'call pa_validarTraslapePermiso(?, ?, ?)';
+        if ($id == 0)
+            $sql = "call pa_validarTraslapePermiso(?, ?, ?, ?)";
+        else
+            $sql = "call pa_validarTraslapePermisoModifica(?, ?, ?, ?)";
         $query = $this->db->query($sql, $data);
         $duplicado = true;
         if ($query->num_rows() == 0)
             $duplicado = false;
 
-        $this->db->close();
+        mysqli_next_result($this->db->conn_id);
         return $duplicado;
     }
     function consultarPermisosUsuario($data)

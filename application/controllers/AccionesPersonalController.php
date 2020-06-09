@@ -38,8 +38,8 @@ class AccionesPersonalController extends CI_Controller
             $usuario = $this->input->post('usuarioIdVacacion');
             $fechaInicio = $this->input->post('fechaInicioVacacion');
             $fechaFin = $this->input->post('fechaFinVacacion');
-            $traslape = 0; //$this->AccionesPersonalModel->validarTraslapeVacacion($usuario, $fechaInicio, $fechaFin, $id);
-            if ($traslape == 0) {
+            $traslape = $this->AccionesPersonalModel->validarTraslapeVacacion($usuario, $fechaInicio, $fechaFin, 0);
+            if (!$traslape) {
                 $data = array(
                     'fechaInicio' => $fechaInicio,
                     'fechaFin' => $fechaFin,
@@ -63,8 +63,8 @@ class AccionesPersonalController extends CI_Controller
             $usuario = $this->input->post('usuarioIdVacacion');
             $fechaInicio = $this->input->post('fechaInicioVacacion');
             $fechaFin = $this->input->post('fechaFinVacacion');
-            $traslape = 0; //$this->AccionesPersonalModel->validarTraslapeVacacion($usuario, $fechaInicio, $fechaFin, $id);
-            if ($traslape == 0) {
+            $traslape = $this->AccionesPersonalModel->validarTraslapeVacacion($usuario, $fechaInicio, $fechaFin, $id);
+            if (!$traslape) {
                 $data = array(
                     'id' => $id,
                     'fechaInicio' => $fechaInicio,
@@ -102,8 +102,8 @@ class AccionesPersonalController extends CI_Controller
             $usuario = $this->input->post('usuarioIdIncapacidad');
             $fechaInicio = $this->input->post('fechaInicioIncapacidad');
             $fechaFin = $this->input->post('fechaFinIncapacidad');
-            $traslape = 0; //$this->AccionesPersonalModel->validarTraslapeIncapacidad($usuario, $fechaInicio, $fechaFin, $id);
-            if ($traslape == 0) {
+            $traslape = $this->AccionesPersonalModel->validarTraslapeIncapacidad($usuario, $fechaInicio, $fechaFin, 0);
+            if (!$traslape) {
                 $data = array(
                     'fechaInicio' => $fechaInicio,
                     'fechaFin' => $fechaFin,
@@ -128,8 +128,8 @@ class AccionesPersonalController extends CI_Controller
             $usuario = $this->input->post('usuarioIdIncapacidad');
             $fechaInicio = $this->input->post('fechaInicioIncapacidad');
             $fechaFin = $this->input->post('fechaFinIncapacidad');
-            $traslape = 0; //$this->AccionesPersonalModel->validarTraslapeIncapacidad($usuario, $fechaInicio, $fechaFin, $id);
-            if ($traslape == 0) {
+            $traslape = $this->AccionesPersonalModel->validarTraslapeIncapacidad($usuario, $fechaInicio, $fechaFin, $id);
+            if (!$traslape) {
                 $data = array(
                     'id' => $id,
                     'fechaInicio' => $fechaInicio,
@@ -169,8 +169,8 @@ class AccionesPersonalController extends CI_Controller
             $usuario = $this->input->post('usuarioIdAusencia');
             $fechaInicio = $this->input->post('fechaInicioAusencia');
             $fechaFin = $this->input->post('fechaFinAusencia');
-            $traslape = $this->AccionesPersonalModel->validarTraslapeAusencia($usuario, $fechaInicio, $fechaFin);
-            if ($traslape == 0) {
+            $traslape = $this->AccionesPersonalModel->validarTraslapeAusencia($usuario, $fechaInicio, $fechaFin, 0);
+            if (!$traslape) {
                 $data = array(
                     'fechaInicio' => $fechaInicio,
                     'fechaFin' => $fechaFin,
@@ -195,8 +195,8 @@ class AccionesPersonalController extends CI_Controller
             $usuario = $this->input->post('usuarioIdAusencia');
             $fechaInicio = $this->input->post('fechaInicioAusencia');
             $fechaFin = $this->input->post('fechaFinAusencia');
-            $traslape = 0; //$this->AccionesPersonalModel->validarTraslapeAusencia($usuario, $fechaInicio, $fechaFin, $id);
-            if ($traslape == 0) {
+            $traslape = $this->AccionesPersonalModel->validarTraslapeAusencia($usuario, $fechaInicio, $fechaFin, $id);
+            if (!$traslape) {
                 $data = array(
                     'id' => $id,
                     'fechaInicio' => $fechaInicio,
@@ -236,8 +236,8 @@ class AccionesPersonalController extends CI_Controller
             $usuario = $this->input->post('usuarioIdPermiso');
             $fechaInicio = $this->input->post('fechaInicioPermiso');
             $fechaFin = $this->input->post('fechaFinPermiso');
-            $traslape = $this->AccionesPersonalModel->validarTraslapePermiso($usuario, $fechaInicio, $fechaFin);
-            if ($traslape == 0) {
+            $traslape = $this->AccionesPersonalModel->validarTraslapePermiso($usuario, $fechaInicio, $fechaFin, 0);
+            if (!$traslape) {
                 $data = array(
                     'fechaInicio' => $fechaInicio,
                     'fechaFin' => $fechaFin,
@@ -263,8 +263,8 @@ class AccionesPersonalController extends CI_Controller
             $usuario = $this->input->post('usuarioIdPermiso');
             $fechaInicio = $this->input->post('fechaInicioPermiso');
             $fechaFin = $this->input->post('fechaFinPermiso');
-            $traslape = 0; //$this->AccionesPersonalModel->validarTraslapePermiso($usuario, $fechaInicio, $fechaFin, $id);
-            if ($traslape == 0) {
+            $traslape = $this->AccionesPersonalModel->validarTraslapePermiso($usuario, $fechaInicio, $fechaFin, $id);
+            if (!$traslape) {
                 $data = array(
                     'id' => $id,
                     'fechaInicio' => $fechaInicio,

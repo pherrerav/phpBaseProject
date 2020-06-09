@@ -49,7 +49,7 @@
                         <label class="col-sm-3 control-label no-padding-right" for="fechaInicioAusencia"> Fecha Inicio </label>
                         <div class="col-sm-6">
                             <input type="hidden" name="ausenciaId" id="ausenciaId">
-                            <input type="text" id="fechaInicioAusencia" name="fechaInicioAusencia" placeholder="Fecha Inicio" class="form-control" />
+                            <input type="text" id="fechaInicioAusencia" autocomplete="off" name="fechaInicioAusencia" placeholder="Fecha Inicio" class="form-control" />
                             <?php echo form_error('fechaInicioAusencia'); ?>
                             <label for="fechaInicioAusencia" class="validation_error_message help-block"></label>
                         </div>
@@ -57,7 +57,7 @@
                     <div class="group">
                         <label class="col-sm-3 control-label no-padding-right" for="fechaFinAusencia"> Fecha Fin </label>
                         <div class="col-sm-6">
-                            <input type="text" id="fechaFinAusencia" name="fechaFinAusencia" placeholder="Fecha Fin" class="form-control" />
+                            <input type="text" id="fechaFinAusencia" autocomplete="off" name="fechaFinAusencia" placeholder="Fecha Fin" class="form-control" />
                             <?php echo form_error('fechaFinAusencia'); ?>
                             <label for="fechaFinAusencia" class="validation_error_message help-block"></label>
                         </div>
@@ -65,7 +65,7 @@
                     <div class="group">
                         <label class="col-sm-5 control-label no-padding-right" for="horasPrimerDiaAusencia"> Horas Primer Día </label>
                         <div class="col-sm-6">
-                            <input type="text" id="horasPrimerDiaAusencia" name="horasPrimerDiaAusencia" placeholder="Horas Primer Día" class="form-control" />
+                            <input type="text" id="horasPrimerDiaAusencia" autocomplete="off" name="horasPrimerDiaAusencia" placeholder="Horas Primer Día" class="form-control" />
                             <?php echo form_error('horasPrimerDiaAusencia'); ?>
                             <label for="horasPrimerDiaAusencia" class="validation_error_message help-block"></label>
                         </div>
